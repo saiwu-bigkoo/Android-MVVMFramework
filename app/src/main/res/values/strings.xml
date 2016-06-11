@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MVVMFrameworkDemo</string>
+    <string name="productPrice">price（产品价格）:%1$s 元</string>
+    <string name="zero">0</string>
+</resources>
