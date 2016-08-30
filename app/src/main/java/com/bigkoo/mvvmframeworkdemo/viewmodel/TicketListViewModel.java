@@ -29,6 +29,8 @@ public class TicketListViewModel extends BaseRefreshRecyclerViewModel{
         //加入header
         addHeader(R.layout.item_header_hot_ticketlist,"我是热门的headerView");
         addHeader(R.layout.item_header_image_ticketlist,0);
+
+//        setLayoutManager(LayoutManagers.grid(2));  网格模式
         onListRefresh();
     }
     @Override

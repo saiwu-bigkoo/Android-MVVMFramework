@@ -3,7 +3,7 @@ package com.bigkoo.mvvmframework.viewmodel;
 import android.support.v4.widget.SwipeRefreshLayout;
 
 /**
- * 下拉刷新，控制加载更多，不同的layoutManager
+ * 下拉刷新
  * Created by Sai on 16/6/16.
  */
 public abstract class BaseRefreshRecyclerViewModel extends BaseRecyclerViewModel{
@@ -19,7 +19,7 @@ public abstract class BaseRefreshRecyclerViewModel extends BaseRecyclerViewModel
     private SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
-            onLoad();
+            onListRefresh();
         }
     };
 

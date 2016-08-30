@@ -11,13 +11,19 @@
 
     </data>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <include layout="@layout/include_recyclerview_refresh"
             app:viewModel="@{viewModel}"/>
-    </LinearLayout>
+
+        <include layout="@layout/include_status_error"
+            app:viewModel="@{viewModel}"/>
+
+        <include layout="@layout/include_status_networkerror"
+            app:viewModel="@{viewModel}"/>
+    </FrameLayout>
 
 </layout>

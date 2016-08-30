@@ -9,7 +9,7 @@ import com.bigkoo.mvvmframework.utils.RecyclerViewItemClickSupport;
 import me.tatarka.bindingcollectionadapter.LayoutManagers;
 
 /**
- * 针对RecyclerView的ViewModel
+ * 针对RecyclerView的ViewModel,加载更多，设置ItemDecoration，设置LayoutManager，响应点击事件
  * Created by Sai on 16/6/4.
  */
 public abstract class BaseRecyclerViewModel<T> extends BaseListViewModel{
