@@ -6,16 +6,34 @@ import android.view.View;
 
 import com.bigkoo.mvvmframework.utils.RecyclerViewItemClickSupport;
 
+import me.tatarka.bindingcollectionadapter.LayoutManagers;
+
 /**
  * 针对RecyclerView的ViewModel
  * Created by Sai on 16/6/4.
  */
 public abstract class BaseRecyclerViewModel<T> extends BaseListViewModel{
+    private LayoutManagers.LayoutManagerFactory layoutManager =  LayoutManagers.linear();
+    private RecyclerView.ItemDecoration itemDecoration;
+    public BaseRecyclerViewModel(int itemLayout) {
+        super(itemLayout);
+    }
+    public BaseRecyclerViewModel(int itemLayout,boolean loadMore) {
+        super(itemLayout);
+        if(!loadMore){
+            onScrollListener = null;
+        }
+    }
 
     public RecyclerViewItemClickSupport.OnItemClickListener onItemClickListener = new RecyclerViewItemClickSupport.OnItemClickListener(){
         @Override
         public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-            onItemClick(recyclerView,position,v,items.get(position));
+            try {
+                //refresh之后会clean items的数据，这个瞬间有可能造成点击 超出数组范围异常
+                onItemClick(recyclerView, position, v, items.get(position));
+            }catch (ArrayIndexOutOfBoundsException e){
+                e.printStackTrace();
+            }
         }
     };
 
@@ -34,7 +52,19 @@ public abstract class BaseRecyclerViewModel<T> extends BaseListViewModel{
         }
     };
 
-    public BaseRecyclerViewModel(int itemLayout) {
-        super(itemLayout);
+    public RecyclerView.ItemDecoration getItemDecoration() {
+        return itemDecoration;
+    }
+
+    public void setItemDecoration(RecyclerView.ItemDecoration itemDecoration) {
+        this.itemDecoration = itemDecoration;
+    }
+
+    public LayoutManagers.LayoutManagerFactory getLayoutManager() {
+        return layoutManager;
+    }
+
+    public void setLayoutManager(LayoutManagers.LayoutManagerFactory layoutManager) {
+        this.layoutManager = layoutManager;
     }
 }

@@ -15,11 +15,4 @@
         android:layout_height="50dp"
         android:text="open TicketListActivity" />
 
-    <Button
-        android:layout_marginTop="20dp"
-        android:id="@+id/btTwoWay"
-        android:onClick="onClick"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="open Twoway-databinding Activity" />
 </LinearLayout>

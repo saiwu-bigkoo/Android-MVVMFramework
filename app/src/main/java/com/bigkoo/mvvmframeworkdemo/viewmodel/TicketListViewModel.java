@@ -3,10 +3,10 @@ package com.bigkoo.mvvmframeworkdemo.viewmodel;
 import android.os.Bundle;
 import android.view.View;
 
-import com.bigkoo.mvvmframework.viewmodel.BaseRecyclerViewModel;
+import com.bigkoo.mvvmframework.model.HttpResult;
+import com.bigkoo.mvvmframework.viewmodel.BaseRefreshRecyclerViewModel;
 import com.bigkoo.mvvmframeworkdemo.R;
 import com.bigkoo.mvvmframeworkdemo.activity.TicketListActivity;
-import com.bigkoo.mvvmframeworkdemo.model.MyHttpResult;
 import com.bigkoo.mvvmframeworkdemo.model.Ticket;
 import com.bigkoo.mvvmframeworkdemo.network.HttpServiceGenerator;
 
@@ -18,7 +18,7 @@ import retrofit2.Call;
  * 通用BaseRecyclerViewModel使用例子
  * Created by Sai on 16/6/3.
  */
-public class TicketListViewModel extends BaseRecyclerViewModel{
+public class TicketListViewModel extends BaseRefreshRecyclerViewModel{
 
     public TicketListViewModel(){
         //正常的item样式
@@ -32,7 +32,7 @@ public class TicketListViewModel extends BaseRecyclerViewModel{
         onListRefresh();
     }
     @Override
-    public Call<MyHttpResult<List<Ticket>>> onLoadListHttpRequest() {
+    public Call<HttpResult<List<Ticket>>> onLoadListHttpRequest() {
         return HttpServiceGenerator.createService().getTicketList(getPage(),getPageSize());
     }
 

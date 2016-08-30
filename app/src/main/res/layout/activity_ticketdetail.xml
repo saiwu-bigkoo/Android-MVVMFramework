@@ -9,6 +9,7 @@
             name="viewModel"
             type="com.bigkoo.mvvmframeworkdemo.viewmodel.TicketDetailViewModel" />
 
+        <import type="com.bigkoo.mvvmframeworkdemo.model.Ticket"/>
     </data>
 
 
@@ -16,32 +17,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="50dp">
-            <Button
-                android:id="@+id/btLoad"
-                android:text="加载数据"
-                android:onClick="@{viewModel}"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="@{viewModel.ticket.spotName}" />
+            android:text="@{((Ticket)viewModel.detail).spotName}" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="@{@string/productPrice(viewModel.ticket.price??@string/zero)}" />
+            android:text="@{@string/productPrice(((Ticket)viewModel.detail).price??@string/zero)}" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="@{viewModel.ticket.detailInfo}" />
+            android:text="@{((Ticket)viewModel.detail).detailInfo}" />
     </LinearLayout>
 </layout>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.bigkoo.mvvmframework.viewmodel.BaseRecyclerViewModel" />
+
+        <variable
+            name="adapterClassName"
+            type="String" />
+
+        <import type="me.tatarka.bindingcollectionadapter.LayoutManagers" />
+    </data>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        app:adapter='@{adapterClassName??"me.tatarka.bindingcollectionadapter.BindingRecyclerViewAdapter"}'
+        app:addOnItemClick="@{viewModel.onItemClickListener}"
+        app:addOnScrollListener="@{viewModel.onScrollListener}"
+        app:itemView="@{viewModel.itemViews}"
+        app:addItemDecoration="@{viewModel.itemDecoration}"
+        app:items="@{viewModel.items}"
+        app:layoutManager="@{viewModel.layoutManager}"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+</layout>

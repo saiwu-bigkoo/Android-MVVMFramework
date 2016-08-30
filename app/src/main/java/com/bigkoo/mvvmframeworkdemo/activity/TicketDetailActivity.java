@@ -8,7 +8,6 @@ import android.widget.Toast;
 import com.bigkoo.mvvmframework.listener.OnViewModelNotifyListener;
 import com.bigkoo.mvvmframeworkdemo.R;
 import com.bigkoo.mvvmframeworkdemo.databinding.ActivityTicketdetailBinding;
-import com.bigkoo.mvvmframeworkdemo.databinding.ActivityTicketlistBinding;
 import com.bigkoo.mvvmframeworkdemo.model.Ticket;
 import com.bigkoo.mvvmframeworkdemo.viewmodel.TicketDetailViewModel;
 

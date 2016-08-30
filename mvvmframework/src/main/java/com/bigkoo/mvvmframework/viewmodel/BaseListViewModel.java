@@ -28,7 +28,6 @@ public abstract class BaseListViewModel<T> extends BaseViewModel{
     private int page = firstPage;
     //分页每页Item数量
     private int pageSize = 10;
-    private final ObservableBoolean refreshing = new ObservableBoolean(false);
     private final ObservableBoolean hasMore = new ObservableBoolean(false);
     private final ObservableBoolean loadingMore = new ObservableBoolean(false);
     protected final ObservableList<Object> items = new ObservableArrayList<>();
@@ -49,22 +48,7 @@ public abstract class BaseListViewModel<T> extends BaseViewModel{
     private ItemViewSelector<Object> itemViews = new ItemViewSelector<Object>() {
         @Override
         public void select(ItemView itemView, int position, Object item) {
-            int layout = itemLayout;
-            //如果符合header条件则使用header中object对应的layout
-            if(position < headers.size()){
-                layout = headers.get(position).getLayout();
-            }
-            //如果符合footer条件则使用footer中object对应的layout
-            else if(position >= items.size() - footers.size()){
-                int footerPosition = footers.size() - (items.size() - position);
-                layout = footers.get(footerPosition).getLayout();
-            }
-
-            Integer layoutRes = specialViews.get(position);
-            //如果specialViews中能匹配位置key则使用对应的value，否则使用正常的itemLayout
-            //注意 无论是 itemLayout 还是 specialViews 中对应的 value Layout，都必须有 viewModel 属性
-            itemView.setBindingVariable(BR.viewModel)
-                    .setLayoutRes((layoutRes == null) ? layout : layoutRes);
+            onItemViewSelector(itemView,position,item);
         }
 
         // Only needed if you are using in a ListView
@@ -73,34 +57,58 @@ public abstract class BaseListViewModel<T> extends BaseViewModel{
             return specialViews.size()+1;
         }
     };
+
+    public void onItemViewSelector(ItemView itemView, int position, Object item){
+        int layout = itemLayout;
+        //如果符合header条件则使用header中object对应的layout
+        if(position < headers.size()){
+            layout = headers.get(position).getLayout();
+        }
+        //如果符合footer条件则使用footer中object对应的layout
+        else if(position >= items.size() - footers.size()){
+            int footerPosition = footers.size() - (items.size() - position);
+            layout = footers.get(footerPosition).getLayout();
+        }
+
+        Integer layoutRes = specialViews.get(position);
+        //如果specialViews中能匹配位置key则使用对应的value，否则使用正常的itemLayout
+        //注意 无论是 itemLayout 还是 specialViews 中对应的 value Layout，都必须有 viewModel 属性
+        itemView.setBindingVariable(BR.viewModel)
+                .setLayoutRes((layoutRes == null) ? layout : layoutRes);
+    }
+
     /**
      * 刷新数据
      */
     public void onListRefresh(){
 //        if(refreshing.get())return;
-        refreshing.set(true);
+        setRefreshing(true);
         //把分页配置还原成加载第一页状态
         page = firstPage;
         hasMore.set(false);
         loadingMore.set(false);
         if(!once)
             setStatusLoading(true);
-        onLoadListHttpRequest().enqueue(callBack);
+        try {
+            onLoadListHttpRequest().enqueue(callBack);
+        }catch (NullPointerException e){}
     }
 
     /**
-     * 刷新数据
+     * 加载数据
      */
     public void onListLoadMore(){
         //判断是否已经在进行加载更多 或 没有更多了，是则直接返回等待加载完成。
         if(loadingMore.get()||!hasMore.get())return;
         //刷新中也直接返回不加载更多
-        if(refreshing.get())return;
+        if(getRefreshing().get())return;
         //分页增加
         page++;
         loadingMore.set(true);
 
-        onLoadListHttpRequest().enqueue(callBack);
+        try {
+            onLoadListHttpRequest().enqueue(callBack);
+        }catch (NullPointerException e){}
     }
 
     public HttpServiceCallBack callBack = new HttpServiceCallBack<List<T>>() {
@@ -139,8 +147,8 @@ public abstract class BaseListViewModel<T> extends BaseViewModel{
             if(!getStatusError().get()&&!getStatusNetworkError().get())
                 setStatusEmpty(items.isEmpty());
 
-            if(isFirstPage())
-                refreshing.set(false);
+            if(isFirstPage())//因为在刷新之前已经把page设为了firstPage，所以可以判断isFirstPage()来判断当前是否刷新
+                setRefreshing(false);
             else
                 loadingMore.set(false);
 
@@ -201,10 +209,6 @@ public abstract class BaseListViewModel<T> extends BaseViewModel{
         this.pageSize = pageSize;
     }
 
-    public ObservableBoolean getRefreshing() {
-        return refreshing;
-    }
-
     public ObservableBoolean getHasMore() {
         return hasMore;
     }
@@ -243,7 +247,7 @@ public abstract class BaseListViewModel<T> extends BaseViewModel{
 
     /**
      * 清除指定位置的样式
-     * @param position
+     * @param position 位置
      */
     public void removeSpecialView(int position){
         specialViews.remove(position);
@@ -255,8 +259,8 @@ public abstract class BaseListViewModel<T> extends BaseViewModel{
 
     /**
      * 加入Header
-     * @param layout
-     * @param o 对应ViewModel的object
+     * @param layout layout的Id
+     * @param o 对应的Model 或 ViewModel
      */
     public void addHeader(int layout,Object o){
         headers.add(new HeaderFooterMapping(layout,o));
@@ -265,8 +269,8 @@ public abstract class BaseListViewModel<T> extends BaseViewModel{
 
     /**
      * 加入Footer
-     * @param layout
-     * @param o 对应ViewModel的object
+     * @param layout layout的Id
+     * @param o 对应的Model 或 ViewModel
      */
     public void addFooter(int layout,Object o){
         footers.add(new HeaderFooterMapping(layout,o));
@@ -275,8 +279,8 @@ public abstract class BaseListViewModel<T> extends BaseViewModel{
 
     /**
      * 移除 layout 对应的 Header
-     * @param layout
-     * @param o
+     * @param layout layout的Id
+     * @param o 对应的Model 或 ViewModel
      */
     public void removeHeader(int layout,Object o){
         headers.remove(layout);
@@ -285,8 +289,8 @@ public abstract class BaseListViewModel<T> extends BaseViewModel{
 
     /**
      * 移除Footer
-     * @param layout
-     * @param o
+     * @param layout layout的Id
+     * @param o 对应的Model 或 ViewModel
      */
     public void removeFooter(int layout,Object o){
         footers.remove(layout);
@@ -319,5 +323,9 @@ public abstract class BaseListViewModel<T> extends BaseViewModel{
         return footers.size();
     }
 
+    @Override
+    public void onLoad() {
+        onListRefresh();
+    }
 }
 

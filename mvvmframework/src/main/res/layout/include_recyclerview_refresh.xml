@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.bigkoo.mvvmframework.viewmodel.BaseRefreshRecyclerViewModel" />
+        <!--例子：app:adapterClassName='@{"com.bigkoo.adapter.xxxAdapter"}'-->
+        <variable
+            name="adapterClassName"
+            type="String"/>
+        <import type="me.tatarka.bindingcollectionadapter.LayoutManagers" />
+    </data>
+
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:onRefreshListener="@{viewModel.onRefreshListener}"
+        app:refreshing="@={viewModel.refreshing}">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:addOnItemClick="@{viewModel.onItemClickListener}"
+            app:addOnScrollListener="@{viewModel.onScrollListener}"
+            app:itemView="@{viewModel.itemViews}"
+            app:items="@{viewModel.items}"
+            app:addItemDecoration="@{viewModel.itemDecoration}"
+            app:adapter='@{adapterClassName??"me.tatarka.bindingcollectionadapter.BindingRecyclerViewAdapter"}'
+            app:layoutManager="@{viewModel.layoutManager}" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</layout>

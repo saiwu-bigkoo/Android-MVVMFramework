@@ -3,24 +3,23 @@ package com.bigkoo.mvvmframework.viewmodel;
 import android.databinding.ObservableBoolean;
 import android.os.Bundle;
 
-import com.bigkoo.mvvmframework.callback.HttpServiceCallBack;
 import com.bigkoo.mvvmframework.listener.OnViewModelNotifyListener;
-
-import java.util.List;
 
 /**
  * 基类ViewModel
  * Created by Sai on 16/5/31.
  */
 public abstract class BaseViewModel<T> {
+    //刷新状态
+    private final ObservableBoolean refreshing = new ObservableBoolean(false);
     //空数据状态
-    private ObservableBoolean statusEmpty = new ObservableBoolean(false);
+    private final ObservableBoolean statusEmpty = new ObservableBoolean(false);
     //加载中状态
-    private ObservableBoolean statusLoading = new ObservableBoolean(false);
+    private final ObservableBoolean statusLoading = new ObservableBoolean(false);
     //错误状态
-    private ObservableBoolean statusError = new ObservableBoolean(false);
+    private final ObservableBoolean statusError = new ObservableBoolean(false);
     //网络异常状态
-    private ObservableBoolean statusNetworkError = new ObservableBoolean(false);
+    private final ObservableBoolean statusNetworkError = new ObservableBoolean(false);
     //通知View进行交互的监听器
     private OnViewModelNotifyListener onViewModelNotifyListener;
 
@@ -56,6 +55,14 @@ public abstract class BaseViewModel<T> {
         statusNetworkError.set(isNetworkError);
     }
 
+    public void setRefreshing(Boolean isRefreshing){
+        refreshing.set(isRefreshing);
+    }
+
+    public ObservableBoolean getRefreshing() {
+        return refreshing;
+    }
+
     public void setOnViewModelNotifyListener(OnViewModelNotifyListener onViewModelNotifyListener) {
         this.onViewModelNotifyListener = onViewModelNotifyListener;
     }
@@ -70,4 +77,8 @@ public abstract class BaseViewModel<T> {
             onViewModelNotifyListener.onViewModelNotify(bundle,code);
     }
 
+    /**
+     * 加载数据
+     */
+    public void onLoad(){}
 }

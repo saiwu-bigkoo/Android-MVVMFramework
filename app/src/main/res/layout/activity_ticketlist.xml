@@ -9,19 +9,15 @@
             name="viewModel"
             type="com.bigkoo.mvvmframeworkdemo.viewmodel.TicketListViewModel" />
 
-        <import type="me.tatarka.bindingcollectionadapter.LayoutManagers"></import>
     </data>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        app:adapter='@{"me.tatarka.bindingcollectionadapter.BindingRecyclerViewAdapter"}'
-        app:addOnItemClick="@{viewModel.onItemClickListener}"
-        app:addOnScrollListener="@{viewModel.onScrollListener}"
-        app:itemView="@{viewModel.itemViews}"
-        app:items="@{viewModel.items}"
-        app:layoutManager="@{LayoutManagers.linear()}" />
+        android:orientation="vertical">
+
+        <include layout="@layout/include_recyclerview_refresh"
+            app:viewModel="@{viewModel}"/>
+    </LinearLayout>
 
 </layout>

@@ -13,13 +13,13 @@ public class HttpResult<T>  {
      */
 
 
-    private int status;
+    private int code;
 
     private T content;
     private String msg;
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setCode(int code) {
+        this.code = code;
     }
 
     public void setContent(T content) {
@@ -30,8 +30,8 @@ public class HttpResult<T>  {
         this.msg = msg;
     }
 
-    public int getStatus() {
-        return status;
+    public int getCode() {
+        return code;
     }
 
     public T getContent() {

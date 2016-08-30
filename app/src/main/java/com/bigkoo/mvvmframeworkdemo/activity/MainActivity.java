@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.bigkoo.mvvmframeworkdemo.R;
+import com.bigkoo.mvvmframeworkdemo.network.HttpServiceGenerator;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,6 +14,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        HttpServiceGenerator.context = getApplicationContext();
     }
 
     public void onClick(View v){
@@ -20,9 +23,6 @@ public class MainActivity extends AppCompatActivity {
         switch (v.getId()){
             case R.id.btTicket:
                 intent.setClass(this,TicketListActivity.class);
-                break;
-            case R.id.btTwoWay:
-                intent.setClass(this,TwowayBindingListActivity.class);
                 break;
         }
         startActivity(intent);

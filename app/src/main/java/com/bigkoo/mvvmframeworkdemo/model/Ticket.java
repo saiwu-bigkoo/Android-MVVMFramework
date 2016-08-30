@@ -18,7 +18,6 @@ public class Ticket implements Serializable{
     private String spotName;
     private String price;
     private String detailInfo;
-    private List<String> spotAliasName;
 
     public String getProductId() {
         return productId;
@@ -36,13 +35,6 @@ public class Ticket implements Serializable{
         this.spotName = spotName;
     }
 
-    public List<String> getSpotAliasName() {
-        return spotAliasName;
-    }
-
-    public void setSpotAliasName(List<String> spotAliasName) {
-        this.spotAliasName = spotAliasName;
-    }
 
     public String getPrice() {
         return price;
