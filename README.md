@@ -7,13 +7,20 @@ Using DataBinding and Retrofit to build a fast MVVM framework
 
 ## 关于
 这是一个搭建MVVM模式极速开发库,不使用dagger2、RxJava等学习成本高的库，仅仅用了DataBinding和Retrofit配合，结构简单容易理解，例子中也给出了DataBinding的使用和双向绑定，可供大家参考。
+
 [MVVM模式架构设计](http://saiwu-bigkoo.github.io/2016/06/11/mvvmframework/)
+
 [如何优雅的快速搭建MVVM项目-MVVMFramework系列教程(一)](http://saiwu-bigkoo.github.io/2016/08/30/mvvmframework1/)
+
 [如何优雅的快速搭建MVVM项目-MVVMFramework系列教程(二)](http://saiwu-bigkoo.github.io/2016/08/30/mvvmframework2/)
+
 [如何优雅的快速搭建MVVM项目-MVVMFramework系列教程(三)](http://saiwu-bigkoo.github.io/2016/08/30/mvvmframework3/)
+
 [如何优雅的快速搭建MVVM项目-MVVMFramework系列教程(四)](http://saiwu-bigkoo.github.io/2016/08/30/mvvmframework4/)
+
 [如何优雅的快速搭建MVVM项目-MVVMFramework系列教程(五)](http://saiwu-bigkoo.github.io/2016/08/30/mvvmframework5/)
-[如何优雅的快速搭建MVVM项目-MVVMFramework系列教程(六)](http://saiwu-bigkoo.github.io/2016/08/30/mvvmframework5/)
+
+[如何优雅的快速搭建MVVM项目-MVVMFramework系列教程(六)](http://saiwu-bigkoo.github.io/2016/08/30/mvvmframework6/)
 
 ## License
 
