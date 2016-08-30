@@ -1,6 +1,9 @@
 # MVVMFramework
 Using DataBinding and Retrofit to build a fast MVVM framework
 
+```java
+   compile 'com.bigkoo:mvvmframework:1.0.0'
+```
 
 ## 关于
 这是一个搭建MVVM模式极速开发库,不使用dagger2、RxJava等学习成本高的库，仅仅用了DataBinding和Retrofit配合，结构简单容易理解，例子中也给出了DataBinding的使用和双向绑定，可供大家参考。
