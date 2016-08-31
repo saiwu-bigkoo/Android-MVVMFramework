@@ -16,8 +16,18 @@ public class Ticket implements Serializable{
 
     private String productId;
     private String spotName;
+    private String imageUrl;
     private String price;
     private String detailInfo;
+
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
     public String getProductId() {
         return productId;

@@ -28,7 +28,9 @@ android {
 }
 
 dependencies {
-    compile project(':mvvmframework')
+//    compile project(':mvvmframework')
+    compile 'com.bigkoo:mvvmframework:1.0.0'
     compile 'com.shanbay.android:mock-api:0.0.1'
+    compile 'com.squareup.picasso:picasso:2.5.2'
 
 }
